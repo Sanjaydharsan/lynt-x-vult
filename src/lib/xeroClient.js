@@ -14,3 +14,19 @@ export const xero = new XeroClient({
     "offline_access",
   ],
 });
+
+// ✅ Add these missing exports:
+export async function loadTokens() {
+  const tokenSetJson = JSON.parse(process.env.XERO_TOKEN_SET || "{}");
+  if (!tokenSetJson.id_token) {
+    throw new Error("Token set is missing or invalid");
+  }
+  await xero.setTokenSet(tokenSetJson);
+}
+
+export async function requireConnection() {
+  const connections = await xero.updateTenants();
+  if (!connections?.length) {
+    throw new Error("No Xero connections available");
+  }
+}
