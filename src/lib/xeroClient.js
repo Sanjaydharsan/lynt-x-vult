@@ -15,7 +15,7 @@ export const xero = new XeroClient({
   ],
 });
 
-// ✅ Add these missing exports:
+// ✅ Add and export these two functions
 export async function loadTokens() {
   const tokenSetJson = JSON.parse(process.env.XERO_TOKEN_SET || "{}");
   if (!tokenSetJson.id_token) {
